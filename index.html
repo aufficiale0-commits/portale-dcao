@@ -32,5 +32,11 @@ function detail(i){let l=lessons[i];root.innerHTML='<button class="btn" onclick=
 function encyclopedia(){let types=[...new Set(lessons.map(l=>l[2]))];root.innerHTML='<div class="eyebrow">Repertorio disciplinare</div><h2>Enciclopedia DCAO</h2>'+types.map(t=>'<h3>'+t+'</h3>'+lessons.filter(l=>l[2]===t).map(row).join('')).join('')}
 function materials(){root.innerHTML='<div class="eyebrow">Risorse del docente</div><h2>Materiale didattico</h2><div class="detail"><h3>Presentazioni PowerPoint esistenti</h3><p>Primo e secondo anno · 24 slide · note del relatore.</p><p>Terzo e quarto anno · 16 slide · note del relatore.</p><h3>Sezioni da integrare</h3><p>Area predisposta per schede PDF, verifiche, esercitazioni, immagini e approfondimenti.</p></div>'}
 document.getElementById('search').addEventListener('input',e=>{let q=e.target.value.toLowerCase().trim();if(!q){home();return}let hits=lessons.filter(l=>l.join(' ').toLowerCase().includes(q));root.innerHTML='<div class="eyebrow">Ricerca nell’archivio</div><h2>Risultati</h2>'+hits.map(row).join('')})
+// Rende esplicite le funzioni richiamate dai pulsanti e dalle schede HTML.
+Object.assign(window, { home, years, archiveLessons, encyclopedia, materials, year, detail });
+document.querySelectorAll('nav button').forEach((button, index) => {
+  const actions = [home, years, archiveLessons, encyclopedia, materials];
+  button.addEventListener('click', actions[index]);
+});
 home();
 </script></body></html>
